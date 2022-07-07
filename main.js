@@ -1,7 +1,7 @@
 const btn = document.querySelector("#start-game");
 
 btn.addEventListener('click', () => {
-  game();
+  playGame();
 });
 
 function computerPlay() {
@@ -58,7 +58,7 @@ function playRound(playerSelection, computerSelection){
   return round_value;
 }
 
-function game(rounds=5) {
+function playGame(rounds=5) {
   playerScore = 0;
   computerScore = 0;
 
