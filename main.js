@@ -1,3 +1,9 @@
+const btn = document.querySelector("#start-game");
+
+btn.addEventListener('click', () => {
+  game();
+});
+
 function computerPlay() {
   hand = ["rock", "paper", "scissors"];
   value = Math.floor(Math.random() * 3);
@@ -10,8 +16,7 @@ function playRound(playerSelection, computerSelection){
   round_value = {"playerScore": 0, "computerScore": 0, "message": ``};
 
   if (playerSelection == computerSelection) {
-    round_value["message"] = `invalid value`;
-    return round_value;
+    round_value["message"] = `tie`;
   }
 
   switch (playerSelection) {
@@ -19,9 +24,7 @@ function playRound(playerSelection, computerSelection){
       if (computerSelection == "paper") {
         round_value["computerScore"] = 1;
         round_value["message"] = `${computerSelection} defeats ${playerSelection}`;
-      }
-      if (computerSelection == "scissors") {
-        round_value["playerScore"] = 1;
+      } if (computerSelection == "scissors") {round_value["playerScore"] = 1;
         round_value["message"] = `${playerSelection} defeats ${computerSelection}`;
       }
       break;
@@ -49,6 +52,7 @@ function playRound(playerSelection, computerSelection){
       break;
     default:
       round_value["message"] = `invalid value`;
+      break;
   }
 
   return round_value;
@@ -84,4 +88,4 @@ function game(rounds=5) {
   }
 }
 
-game(5);
+

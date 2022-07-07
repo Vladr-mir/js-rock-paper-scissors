@@ -1,0 +1,84 @@
+body {
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  border: none;
+  height: 45px;
+  width: 150px;
+  border-radius: 5px;
+  background-color: #2f4b97;
+  color: azure;
+  transition: background-color 0.25s
+}
+
+button:hover {
+  background-color: #492068;
+}
+
+* {
+  font-family: -apple-system, Roboto, sans-serif;
+}
+
+.header {
+  background-color: #2f4b97;
+  color: azure;
+  height: 75px;
+  padding: 10px;
+  margin: 0px 0px;
+  font-size: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-interface {
+  padding: 20px;
+  margin-top: 125px;
+  margin-bottom: 125px;
+  background-color: #c7c3c3;
+  box-shadow: 3px 4px 7px 0px #919191;
+  border-radius: 15px;
+  height: 450px;
+  width: 750px;
+  display: flex;
+  flex: 1 0 auto;
+  align-self: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-title{
+  background-color: azure;
+  font-weight: bold;
+  padding: 10px;
+  width: 550px;
+  height: 40px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.game-explanation {
+  background-color: azure;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 40px;
+  width: 500px;
+  height: 250px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.game-explanation p {
+  padding-left: 25px;
+}
