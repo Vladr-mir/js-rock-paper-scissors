@@ -13,59 +13,67 @@ function computerPlay() {
 function playRound(playerSelection, computerSelection){
   playerSelection = playerSelection.toLowerCase();
   computerSelection = computerSelection.toLowerCase();
-  round_value = {"playerScore": 0, "computerScore": 0, "message": ``};
+  let round_value = {"playerScore": 0, "computerScore": 0, "message": ``};
+  let message = ``;
+  let playerScore = 0;
+  let computerScore = 0;
 
   if (playerSelection == computerSelection) {
-    round_value["message"] = `tie`;
+    message = `tie`;
   }
 
   switch (playerSelection) {
     case "rock":
       if (computerSelection == "paper") {
-        round_value["computerScore"] = 1;
-        round_value["message"] = `${computerSelection} defeats ${playerSelection}`;
-      } if (computerSelection == "scissors") {round_value["playerScore"] = 1;
-        round_value["message"] = `${playerSelection} defeats ${computerSelection}`;
+        computerScore = 1;
+        message = `${computerSelection} defeats ${playerSelection}`;
+      }
+      if (computerSelection == "scissors") {
+        playerScore = 1;
+        message = `${playerSelection} defeats ${computerSelection}`;
       }
       break;
     
     case "paper":
       if (computerSelection == "rock") {
-        round_value["playerScore"] = 1;
-        round_value["message"] = `${playerSelection} defeats ${computerSelection}`;
+        playerScore = 1;
+        message = `${playerSelection} defeats ${computerSelection}`;
       }
       if (computerSelection == "scissors") {
-        round_value["computerScore"] = 1;
-        round_value["message"] = `${computerSelection} defeats ${playerSelection}`;
+        computerScore = 1;
+        message = `${computerSelection} defeats ${playerSelection}`;
       }
       break;
 
     case "scissors":
       if (computerSelection == "rock") {
-        round_value["computerScore"] = 1;
-        round_value["message"] = `${computerSelection} defeats ${playerSelection}`;
+        computerScore = 1;
+        message = `${computerSelection} defeats ${playerSelection}`;
       }
       if (computerSelection == "paper") {
-        round_value["playerScore"] = 1;
-        round_value["message"] = `${playerSelection} defeats ${computerSelection}`;
+        playerScore = 1;
+        message = `${playerSelection} defeats ${computerSelection}`;
       }
       break;
     default:
-      round_value["message"] = `invalid value`;
+      message = `invalid value`;
       break;
   }
 
+  round_value["message"] = message;
+  round_value["computerScore"] = computerScore;
+  round_value["playerScore"] = playerScore;
   return round_value;
 }
 
 function playGame(rounds=5) {
-  playerScore = 0;
-  computerScore = 0;
+  let playerScore = 0;
+  let computerScore = 0;
 
-  playerSelection = "";
-  computerSelection = "";
+  let playerSelection = "";
+  let computerSelection = "";
 
-  round_value = {};
+  let round_value = {};
 
   for (i = 1; i <= rounds; i++) {
     playerSelection = prompt("Enter your selection: ");
