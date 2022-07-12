@@ -84,6 +84,11 @@ button:hover {
   justify-content: space-around;
 }
 
+.player-input {
+  display: flex;
+  justify-content: space-around;
+}
+
 #rounds {
   text-align: center;
 }
