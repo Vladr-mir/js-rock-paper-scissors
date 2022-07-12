@@ -2,7 +2,7 @@ const btn = document.querySelector("button#start-game");
 btn.addEventListener('click', () => {
   const player = document.querySelectorAll("button.p-selection");
   removeEventListenerList(player);
-  setScoreBar('Choose your weapon!');
+  setScoreMessage('Choose your weapon!');
   setRound(1);
   playGame();
 });
@@ -19,17 +19,19 @@ function playGame(rounds=5) {
       const computerSelection = computerPlay();
       const round_value = playRound(playerSelection, computerSelection);
 
-      setScoreBar(round_value['message']);
-      setRound(counter + 1);
-      setPlayerSelection(playerSelection);
-      setComputerSelection(computerSelection);
-
       playerScore += round_value['playerScore'];
       computerScore += round_value['computerScore'];
       counter++;
 
+      setScoreMessage(round_value['message']);
+      setRound(counter);
+      setPlayerSelection(playerSelection);
+      setComputerSelection(computerSelection);
+      setPlayerScore(playerScore);
+      setComputerScore(computerScore);
+
       if (counter >= rounds) {
-        setScoreBar(determineWinner(playerScore, computerScore));
+        setScoreMessage(determineWinner(playerScore, computerScore));
         removeEventListenerList(player);
         return;
       }
@@ -43,9 +45,19 @@ function removeEventListenerList(nodeList) {
   })
 }
 
-function setScoreBar(score) {
+function setScoreMessage(message) {
   const scoreBar = document.querySelector('.score-bar');
-  scoreBar.textContent = score;
+  scoreBar.textContent = message;
+}
+
+function setPlayerScore(score) {
+  const playerScore = document.querySelector(`#player-score`);
+  playerScore.textContent = `Score: ${score}`;
+}
+
+function setComputerScore(score) {
+  const computerScore = document.querySelector(`#computer-score`);
+  computerScore.textContent = `Score: ${score}`;
 }
 
 function setRound(num) {
