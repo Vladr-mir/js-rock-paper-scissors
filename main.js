@@ -1,10 +1,13 @@
 const btn = document.querySelector("button#start-game");
 btn.addEventListener('click', () => {
+  const player = document.querySelectorAll("button.p-selection");
+  removeEventListenerList(player);
   setScoreBar('Choose your weapon!');
-  playerPlay();
+  setRound(1);
+  playGame();
 });
 
-function playerPlay(rounds=5) {
+function playGame(rounds=5) {
   const player = document.querySelectorAll("button.p-selection");
   let counter = 0;
   let playerScore = 0;
@@ -13,18 +16,31 @@ function playerPlay(rounds=5) {
   player.forEach(btn => {
     btn.addEventListener('click', (e) => {
       const playerSelection = e.target.dataset.selection;
-      const round_value = playRound(playerSelection, computerPlay());
+      const computerSelection = computerPlay();
+      const round_value = playRound(playerSelection, computerSelection);
 
       setScoreBar(round_value['message']);
+      setRound(counter + 1);
+      setPlayerSelection(playerSelection);
+      setComputerSelection(computerSelection);
+
       playerScore += round_value['playerScore'];
       computerScore += round_value['computerScore'];
       counter++;
+
       if (counter >= rounds) {
         setScoreBar(determineWinner(playerScore, computerScore));
-        btn.replaceWith(btn.cloneNode(true));
+        removeEventListenerList(player);
+        return;
       }
     });
   });
+}
+
+function removeEventListenerList(nodeList) {
+  nodeList.forEach(node => {
+    node.replaceWith(node.cloneNode(true));
+  })
 }
 
 function setScoreBar(score) {
@@ -32,10 +48,35 @@ function setScoreBar(score) {
   scoreBar.textContent = score;
 }
 
+function setRound(num) {
+  const round = document.querySelector('#rounds');
+  round.textContent = `Round ${num}`;
+}
+
+function setPlayerSelection(selection) {
+  const playerSelection = document.querySelector('#player-selector');
+  playerSelection.textContent = `Player: ${selection}`;
+}
+
+function setComputerSelection(selection) {
+  const computerSelection = document.querySelector('#computer-selector');
+  computerSelection.textContent = `Computer: ${selection}`;
+}
+
 function computerPlay() {
   hand = ["rock", "paper", "scissors"];
   value = Math.floor(Math.random() * 3);
   return hand[value];
+}
+
+function determineWinner(playerScore, computerScore) {
+  if (playerScore == computerScore) {
+    return "Tie!";
+  } else if (playerScore > computerScore) {
+    return "You Win!";
+  } else {
+    return "You lose!";
+  }
 }
 
 function playRound(playerSelection, computerSelection){
@@ -95,28 +136,5 @@ function playRound(playerSelection, computerSelection){
   return round_value;
 }
 
-function determineWinner(playerScore, computerScore) {
-  if (playerScore == computerScore) {
-    return "Tie!";
-  } else if (playerScore > computerScore) {
-    return "You Win!";
-  } else {
-    return "You lose!";
-  }
-}
 
-function playGame(rounds=5) {
-  
-  for (i = 1; i <= rounds; i++) {
-    computerSelection = computerPlay();
-    round_value = playRound(playerSelection, computerSelection);
 
-    playerScore += round_value["playerScore"];
-    computerScore += round_value["computerScore"];
-
-    console.log(`Player Score: ${playerScore} | Computer Score: ${computerScore}`);
-    console.log(round_value["message"]);
-  }
-
-  
-}
