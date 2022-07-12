@@ -1,8 +1,36 @@
-const btn = document.querySelector("#start-game");
-
+const btn = document.querySelector("button#start-game");
 btn.addEventListener('click', () => {
-  playGame();
+  setScoreBar('Choose your weapon!');
+  playerPlay();
 });
+
+function playerPlay(rounds=5) {
+  const player = document.querySelectorAll("button.p-selection");
+  let counter = 0;
+  let playerScore = 0;
+  let computerScore = 0;
+
+  player.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const playerSelection = e.target.dataset.selection;
+      const round_value = playRound(playerSelection, computerPlay());
+
+      setScoreBar(round_value['message']);
+      playerScore += round_value['playerScore'];
+      computerScore += round_value['computerScore'];
+      counter++;
+      if (counter >= rounds) {
+        setScoreBar(determineWinner(playerScore, computerScore));
+        btn.replaceWith(btn.cloneNode(true));
+      }
+    });
+  });
+}
+
+function setScoreBar(score) {
+  const scoreBar = document.querySelector('.score-bar');
+  scoreBar.textContent = score;
+}
 
 function computerPlay() {
   hand = ["rock", "paper", "scissors"];
@@ -26,14 +54,14 @@ function playRound(playerSelection, computerSelection){
     case "rock":
       if (computerSelection == "paper") {
         computerScore = 1;
-        message = `${computerSelection} defeats ${playerSelection}`;
+        message = `${playerSelection} loses against ${computerSelection}`;
       }
       if (computerSelection == "scissors") {
         playerScore = 1;
         message = `${playerSelection} defeats ${computerSelection}`;
       }
       break;
-    
+
     case "paper":
       if (computerSelection == "rock") {
         playerScore = 1;
@@ -41,20 +69,21 @@ function playRound(playerSelection, computerSelection){
       }
       if (computerSelection == "scissors") {
         computerScore = 1;
-        message = `${computerSelection} defeats ${playerSelection}`;
+        message = `${playerSelection} loses against ${computerSelection}`;
       }
       break;
 
     case "scissors":
       if (computerSelection == "rock") {
         computerScore = 1;
-        message = `${computerSelection} defeats ${playerSelection}`;
+        message = `${playerSelection} loses against ${computerSelection}`;
       }
       if (computerSelection == "paper") {
         playerScore = 1;
         message = `${playerSelection} defeats ${computerSelection}`;
       }
       break;
+
     default:
       message = `invalid value`;
       break;
@@ -66,17 +95,19 @@ function playRound(playerSelection, computerSelection){
   return round_value;
 }
 
+function determineWinner(playerScore, computerScore) {
+  if (playerScore == computerScore) {
+    return "Tie!";
+  } else if (playerScore > computerScore) {
+    return "You Win!";
+  } else {
+    return "You lose!";
+  }
+}
+
 function playGame(rounds=5) {
-  let playerScore = 0;
-  let computerScore = 0;
-
-  let playerSelection = "";
-  let computerSelection = "";
-
-  let round_value = {};
-
+  
   for (i = 1; i <= rounds; i++) {
-    playerSelection = prompt("Enter your selection: ");
     computerSelection = computerPlay();
     round_value = playRound(playerSelection, computerSelection);
 
@@ -87,13 +118,5 @@ function playGame(rounds=5) {
     console.log(round_value["message"]);
   }
 
-  if (playerScore == computerScore) {
-    console.log("Tie!");
-  } else if (playerScore > computerScore) {
-    console.log("You Win!");
-  } else {
-    console.log("You lose!");
-  }
+  
 }
-
-

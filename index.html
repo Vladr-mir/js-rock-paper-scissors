@@ -5,25 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
+    <script src="./main.js" defer></script>
     <title>Rock Paper and Scissors</title>
 </head>
 <body>
   <div class="header"><p>Rock Paper and Scissors</p></div>
   <div class="game-interface">
-    <div class="game-title"><p>How to play!</p></div>
+    <div class="score-bar"></div>
     <div class="game-explanation">
-      <ul>
-        <li>Rihgt click any part of the page</li>
-        <li>Select inspect element</li>
-        <li>Select the console tab</li>
-        <li>Click the button below to start playing!</li>
-      </ul>
-      <p>
-        Remember to choose between "Rock", "Paper" or "Scissors"
-      </p>
+      <div>
+        <button data-selection="rock" class="p-selection">Rock</button>
+        <button data-selection="paper" class="p-selection">Paper</button>
+        <button data-selection="scissors" class="p-selection">Scissors</button>
+      </div>
     </div>
     <button id="start-game">Click me to Start playing</button>
-  </div>
-  <script src="./main.js"></script>
 </body>
 </html>

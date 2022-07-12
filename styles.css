@@ -52,7 +52,7 @@ button:hover {
   align-items: center;
 }
 
-.game-title{
+.score-bar {
   background-color: azure;
   font-weight: bold;
   padding: 10px;
